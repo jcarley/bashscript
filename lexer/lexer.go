@@ -26,13 +26,27 @@ func (this *Lexer) NextToken() token.Token {
 
 	switch this.ch {
 	case '=':
-		tok = newToken(token.ASSIGN, this.ch)
+		if this.peekChar() == '=' {
+			ch := this.ch
+			this.readChar()
+			literal := string(ch) + string(this.ch)
+			tok = token.Token{Type: token.EQ, Literal: literal}
+		} else {
+			tok = newToken(token.ASSIGN, this.ch)
+		}
 	case '+':
 		tok = newToken(token.PLUS, this.ch)
 	case '-':
 		tok = newToken(token.MINUS, this.ch)
 	case '!':
-		tok = newToken(token.BANG, this.ch)
+		if this.peekChar() == '=' {
+			ch := this.ch
+			this.readChar()
+			literal := string(ch) + string(this.ch)
+			tok = token.Token{Type: token.NOT_EQ, Literal: literal}
+		} else {
+			tok = newToken(token.BANG, this.ch)
+		}
 	case '/':
 		tok = newToken(token.SLASH, this.ch)
 	case '*':
