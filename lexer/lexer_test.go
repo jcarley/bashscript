@@ -40,6 +40,14 @@ func TestNextTokenSingleChars(t *testing.T) {
 
 }
 
+func TestSearchFunction(t *testing.T) {
+	input := `
+	fn(x, y) {
+		x + y;
+	};`
+	l := New(input)
+}
+
 func TestNextTokenSourceCode(t *testing.T) {
 
 	input := `
